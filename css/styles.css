@@ -2,18 +2,21 @@
 
 * {
 	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
 }
 
 /* Class Styles */
 
 .container {
-	display: grid;
-	grid-template-areas:
-		'heading'
-		'employees';
+	width: 95%;
+	margin: auto;
+	text-align: center;
 }
 
 .heading {
 	grid-area: heading;
 	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-size: 1.5rem;
+	font-weight: 400;
 }
