@@ -1,5 +1,7 @@
+// Global variables
 const usersUrl = 'https://randomuser.me/api/?results=12';
 const employees = document.querySelector('.employee-container');
+const randomUsers = [];
 
 // Fetch functions
 async function fetchData(url) {
@@ -17,14 +19,16 @@ async function getRandomUsers(url) {
 	generateUserCards(users);
 }
 
-// Generate HTML from JSON
+// Generate HTML functions
 function generateUserCards(users) {
-	users.forEach((user) => {
+	users.forEach((user, idx) => {
+		randomUsers.push(user);
 		const { picture, name, email, location } = user;
 		const fullName = `${name.first} ${name.last}`;
 
 		// Create employee div
 		const card = createElement('div', 'card');
+		card.id = idx;
 
 		// Create elements that make up each employee card
 		const img = createElement('img', 'profile-img');
@@ -44,6 +48,11 @@ function generateUserCards(users) {
 
 		appendItems(employees, [card]);
 	});
+	console.log(randomUsers);
+}
+
+function generateOverlay(user) {
+	console.log(user);
 }
 
 // Helper Functions
@@ -58,5 +67,14 @@ function appendItems(parentNode, itemsToAppend) {
 	itemsToAppend.forEach((item) => parentNode.appendChild(item));
 }
 
+function handleCardClick(evt) {
+	let currNode = evt.target;
+	while (currNode.className !== 'card') {
+		currNode = currNode.parentNode;
+	}
+	generateOverlay(randomUsers[currNode.id]);
+}
+
 // Event Listener
 document.addEventListener('DOMContentLoaded', () => getRandomUsers(usersUrl));
+employees.addEventListener('click', handleCardClick);
