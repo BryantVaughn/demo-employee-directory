@@ -1,5 +1,5 @@
 // Global variables
-const usersUrl = 'https://randomuser.me/api/?results=12';
+const usersUrl = 'https://randomuser.me/api/?results=12&nat=us';
 const overlay = document.querySelector('.overlay');
 const overlayData = document.querySelector('.overlay-data');
 const employees = document.querySelector('.employee-container');
@@ -114,7 +114,8 @@ function streetAddressBuilder(locationObj) {
 	const addNumber = locationObj.street.number;
 	const streetName = locationObj.street.name;
 	const city = locationObj.city;
-	const state = locationObj.state;
+	const state = abbrState(locationObj.state);
+	console.log(state);
 	const postCode = locationObj.postcode;
 	console.log(`${addNumber} ${streetName} ${city}, ${state} ${postCode}`);
 	return `${addNumber} ${streetName} ${city}, ${state} ${postCode}`;
@@ -139,6 +140,68 @@ function closeOverlay(evt) {
 		overlayData.style.display = 'none';
 		overlay.style.display = 'none';
 	}
+}
+
+function abbrState(inputState) {
+	const states = [
+		['Arizona', 'AZ'],
+		['Alabama', 'AL'],
+		['Alaska', 'AK'],
+		['Arkansas', 'AR'],
+		['California', 'CA'],
+		['Colorado', 'CO'],
+		['Connecticut', 'CT'],
+		['Delaware', 'DE'],
+		['Florida', 'FL'],
+		['Georgia', 'GA'],
+		['Hawaii', 'HI'],
+		['Idaho', 'ID'],
+		['Illinois', 'IL'],
+		['Indiana', 'IN'],
+		['Iowa', 'IA'],
+		['Kansas', 'KS'],
+		['Kentucky', 'KY'],
+		['Louisiana', 'LA'],
+		['Maine', 'ME'],
+		['Maryland', 'MD'],
+		['Massachusetts', 'MA'],
+		['Michigan', 'MI'],
+		['Minnesota', 'MN'],
+		['Mississippi', 'MS'],
+		['Missouri', 'MO'],
+		['Montana', 'MT'],
+		['Nebraska', 'NE'],
+		['Nevada', 'NV'],
+		['New Hampshire', 'NH'],
+		['New Jersey', 'NJ'],
+		['New Mexico', 'NM'],
+		['New York', 'NY'],
+		['North Carolina', 'NC'],
+		['North Dakota', 'ND'],
+		['Ohio', 'OH'],
+		['Oklahoma', 'OK'],
+		['Oregon', 'OR'],
+		['Pennsylvania', 'PA'],
+		['Rhode Island', 'RI'],
+		['South Carolina', 'SC'],
+		['South Dakota', 'SD'],
+		['Tennessee', 'TN'],
+		['Texas', 'TX'],
+		['Utah', 'UT'],
+		['Vermont', 'VT'],
+		['Virginia', 'VA'],
+		['Washington', 'WA'],
+		['West Virginia', 'WV'],
+		['Wisconsin', 'WI'],
+		['Wyoming', 'WY']
+	];
+
+	const stateArr = states.filter((state) => {
+		return state[0] === inputState;
+	});
+
+	const stateAbbr = stateArr[0][1];
+	return stateAbbr;
 }
 
 // Event Listener
