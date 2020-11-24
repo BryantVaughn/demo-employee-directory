@@ -54,9 +54,12 @@ function generateUserCards(users) {
 }
 
 function generateOverlay(user) {
-	console.log(user);
 	overlay.style.display = 'block';
-	overlayData.style.display = 'block';
+	overlayData.style.display = 'flex';
+
+	const closeBtn = createElement('button', 'close-overlay', 'Close');
+	const dataElements = [closeBtn];
+	appendItems(overlayData, dataElements);
 }
 
 // Helper Functions
@@ -79,6 +82,24 @@ function handleCardClick(evt) {
 	generateOverlay(randomUsers[currNode.id]);
 }
 
+function closeOverlay(evt) {
+	const { target } = evt;
+	if (target.tagName === 'BUTTON' || target.className === 'overlay') {
+		overlayData.innerHTML = '';
+		overlayData.style.display = 'none';
+		overlay.style.display = 'none';
+	}
+}
+
+function removeChildren(parentNode) {
+	console.log(parentNode);
+	while (parentNode.firstChild) {
+		console.log(parentNode.firstElementChild);
+		parentNode.removeChild(parent.firstElementChild);
+	}
+}
+
 // Event Listener
 document.addEventListener('DOMContentLoaded', () => getRandomUsers(usersUrl));
 employees.addEventListener('click', handleCardClick);
+overlay.addEventListener('click', closeOverlay);
