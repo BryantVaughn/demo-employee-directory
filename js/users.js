@@ -55,14 +55,32 @@ function generateMainData(parentElement, user, imgSize) {
 	appendItems(parentElement, childElements);
 }
 
+function generateSubData(parentElement, user) {
+	console.log(user);
+	const { phone, location, dob } = user;
+	const formattedPhone = formatPhoneNumber(phone);
+	const streetAddress = streetAddressBuilder(location);
+	const formattedDate = formatDate(dob.date);
+	const phoneNum = createElement('p', 'phone', formattedPhone);
+	const address = createElement('p', 'address', streetAddress);
+	const birthday = createElement('p', 'birthday', `Birthday: ${formattedDate}`);
+
+	const subDataElements = [phoneNum, address, birthday];
+	appendItems(parentElement, subDataElements);
+}
+
 function generateOverlay(user) {
 	overlay.style.display = 'block';
 	overlayData.style.display = 'flex';
 
 	const closeBtn = createElement('button', 'close-overlay', 'Close');
-	const cardDiv = createElement('div', 'main-data');
-	generateMainData(cardDiv, user, 'large');
-	const dataElements = [closeBtn, cardDiv];
+	const mainDataDiv = createElement('div', 'main-data');
+	generateMainData(mainDataDiv, user, 'large');
+
+	const subDataDiv = createElement('div', 'sub-data');
+	generateSubData(subDataDiv, user);
+
+	const dataElements = [closeBtn, mainDataDiv, subDataDiv];
 	appendItems(overlayData, dataElements);
 }
 
@@ -72,6 +90,34 @@ function createElement(ele, className = null, textContent = null) {
 	element.textContent = textContent;
 	element.className = className;
 	return element;
+}
+
+function formatPhoneNumber(phone) {
+	if (phone[4] === ')') return `${phone.slice(0, 5)} ${phone.slice(6)}`;
+	return phone;
+}
+
+function formatDate(dateString) {
+	const date = new Date(dateString);
+	const month = padNumWithZeros(date.getMonth() + 1, 2);
+	const day = padNumWithZeros(date.getDate(), 2);
+	const year = date.getYear();
+	console.log(`${month}/${day}/${year}`);
+	return `${month}/${day}/${year}`;
+}
+
+function padNumWithZeros(num, targetLength) {
+	return num.toString().padStart(targetLength, '0');
+}
+
+function streetAddressBuilder(locationObj) {
+	const addNumber = locationObj.street.number;
+	const streetName = locationObj.street.name;
+	const city = locationObj.city;
+	const state = locationObj.state;
+	const postCode = locationObj.postcode;
+	console.log(`${addNumber} ${streetName} ${city}, ${state} ${postCode}`);
+	return `${addNumber} ${streetName} ${city}, ${state} ${postCode}`;
 }
 
 function appendItems(parentNode, itemsToAppend) {
