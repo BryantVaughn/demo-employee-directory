@@ -122,23 +122,6 @@ function appendItems(parentNode, itemsToAppend) {
 	itemsToAppend.forEach((item) => parentNode.appendChild(item));
 }
 
-function handleCardClick(evt) {
-	let currNode = evt.target;
-	while (currNode.className !== 'card') {
-		currNode = currNode.parentNode;
-	}
-	generateOverlay(randomUsers[currNode.id]);
-}
-
-function closeOverlay(evt) {
-	const { target } = evt;
-	if (target.tagName === 'BUTTON' || target.className === 'overlay') {
-		overlayData.innerHTML = '';
-		overlayData.style.display = 'none';
-		overlay.style.display = 'none';
-	}
-}
-
 function abbrState(inputState) {
 	const states = [
 		['Arizona', 'AZ'],
@@ -199,6 +182,24 @@ function abbrState(inputState) {
 
 	const stateAbbr = stateArr[0][1];
 	return stateAbbr;
+}
+
+// Event Handlers
+function handleCardClick(evt) {
+	let currNode = evt.target;
+	while (currNode.className !== 'card') {
+		currNode = currNode.parentNode;
+	}
+	generateOverlay(randomUsers[currNode.id]);
+}
+
+function closeOverlay(evt) {
+	const { target } = evt;
+	if (target.tagName === 'BUTTON' || target.className === 'overlay') {
+		overlayData.innerHTML = '';
+		overlayData.style.display = 'none';
+		overlay.style.display = 'none';
+	}
 }
 
 // Search Functionality
