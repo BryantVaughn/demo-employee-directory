@@ -22,14 +22,6 @@ function generateUserCards(users) {
 	users.forEach((user) => {
 		const { picture, name, email, location } = user;
 		const fullName = `${name.first} ${name.last}`;
-		// const html = `
-		//   <div class="card">
-		//     <img src="${picture.thumbnail}" alt="Picture of ${name.first} ${name.last}" />
-		//     <h3 class="name">${name.first} ${name.last}</h3>
-		//     <p class="email">${email}</p>
-		//     <p class="location">${location.city}<p>
-		//   </div>
-		// `;
 
 		// Create employee div
 		const card = createElement('div', 'card');
