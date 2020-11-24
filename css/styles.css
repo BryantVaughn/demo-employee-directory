@@ -13,13 +13,28 @@
 	text-align: center;
 }
 
-.heading {
+.main-header {
+	width: 100%;
+	padding-top: 1.5rem;
+	padding-bottom: 1rem;
+}
+
+.title {
 	grid-area: heading;
 	text-transform: uppercase;
 	letter-spacing: 0.1rem;
 	font-size: 1rem;
 	font-weight: 400;
-	margin: 1.5rem 0.5rem 1rem;
+	margin-bottom: 1rem;
+}
+
+.search {
+	padding: 0.25rem 0.5rem;
+}
+
+.search,
+.name {
+	font-size: 0.9rem;
 }
 
 .employee-container {
@@ -34,6 +49,7 @@
 	border: 2px solid rgba(0, 0, 0, 0.1);
 	border-radius: 5px;
 	margin-bottom: 0.5rem;
+	cursor: pointer;
 }
 
 .profile-img {
@@ -46,7 +62,6 @@
 }
 
 .name {
-	font-size: 0.9rem;
 	font-weight: bold;
 }
 
