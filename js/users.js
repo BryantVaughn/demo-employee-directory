@@ -53,7 +53,6 @@ function generateMainData(parentElement, user, imgSize) {
 
 	const childElements = [img, textDiv];
 	appendItems(parentElement, childElements);
-	return parentElement;
 }
 
 function generateOverlay(user) {
@@ -62,7 +61,8 @@ function generateOverlay(user) {
 
 	const closeBtn = createElement('button', 'close-overlay', 'Close');
 	const cardDiv = createElement('div', 'main-data');
-	const dataElements = [closeBtn];
+	generateMainData(cardDiv, user, 'large');
+	const dataElements = [closeBtn, cardDiv];
 	appendItems(overlayData, dataElements);
 }
 

@@ -5,6 +5,38 @@
 	font-family: 'Montserrat', sans-serif;
 }
 
+/* Layout/Display Styles */
+
+.overlay {
+	position: fixed;
+}
+.overlay,
+.overlay-data {
+	display: none;
+}
+
+.card,
+.main-data,
+.main-data .employee-text {
+	display: flex;
+}
+.main-data,
+.main-data .employee-text,
+.overlay-data {
+	flex-direction: column;
+}
+.card,
+.main-data,
+.main-data .employee-text,
+.overlay-data {
+	align-items: center;
+}
+
+.main-data,
+.main-data .employee-text {
+	justify-content: space-between;
+}
+
 /* Class Styles */
 
 .container {
@@ -13,8 +45,6 @@
 }
 
 .overlay {
-	position: fixed;
-	display: none;
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -32,12 +62,10 @@
 }
 
 .overlay-data {
-	display: none;
-	flex-direction: column;
 	width: 95%;
-	height: 80vh;
-	margin: 10vh auto;
-	padding: 0.75rem;
+	height: 70vh;
+	margin: 15vh auto;
+	padding: 1rem;
 	background-color: #fff;
 	z-index: 5;
 	cursor: default;
@@ -82,8 +110,6 @@
 }
 
 .card {
-	display: flex;
-	align-items: center;
 	width: 100%;
 	height: 120px;
 	border: 2px solid rgba(0, 0, 0, 0.1);
@@ -118,4 +144,17 @@
 .location {
 	font-size: 0.7rem;
 	font-weight: 300;
+}
+
+.main-data {
+	width: 100%;
+	height: 60%;
+	padding: 1rem 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.main-data img {
+	height: 60%;
+}
+.main-data .employee-text {
+	height: 30%;
 }
