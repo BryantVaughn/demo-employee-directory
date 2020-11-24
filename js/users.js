@@ -2,6 +2,7 @@
 const usersUrl = 'https://randomuser.me/api/?results=12&nat=us';
 const overlay = document.querySelector('.overlay');
 const overlayData = document.querySelector('.overlay-data');
+const search = document.querySelector('.search');
 const employees = document.querySelector('.employee-container');
 const randomUsers = [];
 
@@ -56,7 +57,6 @@ function generateMainData(parentElement, user, imgSize) {
 }
 
 function generateSubData(parentElement, user) {
-	console.log(user);
 	const { cell, location, dob } = user;
 	const formattedCell = formatPhoneNumber(cell);
 	const streetAddress = streetAddressBuilder(location);
@@ -102,7 +102,6 @@ function formatDate(dateString) {
 	const month = padNumWithZeros(date.getMonth() + 1, 2);
 	const day = padNumWithZeros(date.getDate(), 2);
 	const year = date.getYear();
-	console.log(`${month}/${day}/${year}`);
 	return `${month}/${day}/${year}`;
 }
 
@@ -115,9 +114,7 @@ function streetAddressBuilder(locationObj) {
 	const streetName = locationObj.street.name;
 	const city = locationObj.city;
 	const state = abbrState(locationObj.state);
-	console.log(state);
 	const postCode = locationObj.postcode;
-	console.log(`${addNumber} ${streetName} ${city}, ${state} ${postCode}`);
 	return `${addNumber} ${streetName} ${city}, ${state} ${postCode}`;
 }
 
@@ -204,7 +201,38 @@ function abbrState(inputState) {
 	return stateAbbr;
 }
 
+// Search Functionality
+function filterEmployees(evt) {
+	const filteredUsers = [];
+	randomUsers.forEach((user, idx) => {
+		const searchVal = evt.target.value.toLowerCase();
+		const fullName = `${user.name.first} ${user.name.last}`.toLowerCase();
+		if (fullName.includes(searchVal)) {
+			const idxStr = `${idx}`;
+			filteredUsers.push({ ...user, idxStr });
+		}
+	});
+	console.log('filteredUsers:', filteredUsers);
+	updateUsers(filteredUsers);
+}
+
+function updateUsers(usersList) {
+	const indexList = usersList.map((user) => user.idxStr);
+	console.log(indexList);
+
+	const userCards = employees.querySelectorAll('.card');
+	for (let userCard of userCards) {
+		if (!indexList.includes(userCard.id)) {
+			userCard.style.display = 'none';
+		} else {
+			console.log('FOUND!');
+			userCard.style.display = '';
+		}
+	}
+}
+
 // Event Listener
 document.addEventListener('DOMContentLoaded', () => getRandomUsers(usersUrl));
+search.addEventListener('keyup', filterEmployees);
 employees.addEventListener('click', handleCardClick);
 overlay.addEventListener('click', closeOverlay);
