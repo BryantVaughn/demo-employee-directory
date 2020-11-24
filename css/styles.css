@@ -25,3 +25,43 @@
 .employee-container {
 	width: 100%;
 }
+
+.card {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 120px;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	margin-bottom: 0.5rem;
+}
+
+.profile-img {
+	border-radius: 50%;
+	padding: 0 0.5rem;
+}
+
+.employee-text {
+	text-align: left;
+}
+
+.name {
+	font-size: 0.9rem;
+	font-weight: bold;
+}
+
+.name,
+.email,
+.location {
+	margin: 0;
+}
+.name,
+.email {
+	margin-bottom: 0.3rem;
+}
+
+.email,
+.location {
+	font-size: 0.7rem;
+	font-weight: 300;
+}
