@@ -57,11 +57,11 @@ function generateMainData(parentElement, user, imgSize) {
 
 function generateSubData(parentElement, user) {
 	console.log(user);
-	const { phone, location, dob } = user;
-	const formattedPhone = formatPhoneNumber(phone);
+	const { cell, location, dob } = user;
+	const formattedCell = formatPhoneNumber(cell);
 	const streetAddress = streetAddressBuilder(location);
 	const formattedDate = formatDate(dob.date);
-	const phoneNum = createElement('p', 'phone', formattedPhone);
+	const phoneNum = createElement('p', 'phone', formattedCell);
 	const address = createElement('p', 'address', streetAddress);
 	const birthday = createElement('p', 'birthday', `Birthday: ${formattedDate}`);
 
