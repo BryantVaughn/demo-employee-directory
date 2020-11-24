@@ -193,3 +193,13 @@
 .sub-data p {
 	margin: 0;
 }
+
+/* Media Queries */
+@media (min-width: 768px) {
+	.container {
+		padding: 0 1.5rem;
+	}
+	.search {
+		width: 50%;
+	}
+}

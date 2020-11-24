@@ -213,20 +213,17 @@ function filterEmployees(evt) {
 			filteredUsers.push({ ...user, idxStr });
 		}
 	});
-	console.log('filteredUsers:', filteredUsers);
 	updateUsers(filteredUsers);
 }
 
 function updateUsers(usersList) {
 	const indexList = usersList.map((user) => user.idxStr);
-	console.log(indexList);
 
 	const userCards = employees.querySelectorAll('.card');
 	for (let userCard of userCards) {
 		if (!indexList.includes(userCard.id)) {
 			userCard.style.display = 'none';
 		} else {
-			console.log('FOUND!');
 			userCard.style.display = '';
 		}
 	}
