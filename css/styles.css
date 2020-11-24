@@ -17,12 +17,14 @@
 
 .card,
 .main-data,
-.main-data .employee-text {
+.main-data .employee-text,
+.sub-data {
 	display: flex;
 }
 .main-data,
 .main-data .employee-text,
-.overlay-data {
+.overlay-data,
+.sub-data {
 	flex-direction: column;
 }
 .card,
@@ -35,7 +37,8 @@
 .main-data {
 	justify-content: space-around;
 }
-.main-data .employee-text {
+.main-data .employee-text,
+.sub-data {
 	justify-content: space-between;
 }
 
@@ -65,7 +68,7 @@
 
 .overlay-data {
 	width: 95%;
-	height: 70vh;
+	height: 60vh;
 	margin: 15vh auto;
 	padding: 1rem;
 	background-color: #fff;
@@ -143,7 +146,8 @@
 
 .close-overlay,
 .email,
-.location {
+.location,
+.sub-data p {
 	font-size: 0.7rem;
 	font-weight: 300;
 }
@@ -155,7 +159,7 @@
 
 .main-data {
 	width: 100%;
-	height: 60%;
+	height: 70%;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .main-data img {
@@ -167,5 +171,8 @@
 
 .sub-data {
 	width: 100%;
-	height: 40%;
+	height: 30%;
+}
+.sub-data p {
+	margin: 0;
 }
