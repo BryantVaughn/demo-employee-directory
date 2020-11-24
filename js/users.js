@@ -24,33 +24,36 @@ async function getRandomUsers(url) {
 // Generate HTML functions
 function generateUserCards(users) {
 	users.forEach((user, idx) => {
+		// Add user to randomUsers array
 		randomUsers.push(user);
-		const { picture, name, email, location } = user;
-		const fullName = `${name.first} ${name.last}`;
-
-		// Create employee div
+		// Create employee div with user index
 		const card = createElement('div', 'card');
 		card.id = idx;
-
-		// Create elements that make up each employee card
-		const img = createElement('img', 'profile-img');
-		img.src = picture.medium;
-		img.alt = `Picture of ${fullName}`;
-		const textDiv = createElement('div', 'employee-text');
-		const nameH3 = createElement('h3', 'name', `${fullName}`);
-		const emailP = createElement('p', 'email', email);
-		const locationP = createElement('p', 'location', location.city);
-
-		// Create array of elements to append to div
-		const textItems = [nameH3, emailP, locationP];
-		appendItems(textDiv, textItems);
-
-		const childItems = [img, textDiv];
-		appendItems(card, childItems);
-
+		// Generate data for each card
+		generateMainData(card, user, 'medium');
+		// Append card to employee container
 		appendItems(employees, [card]);
 	});
-	console.log(randomUsers);
+}
+
+function generateMainData(parentElement, user, imgSize) {
+	// Create elements that make up each employee card
+	const { picture, name, email, location } = user;
+	const fullName = `${name.first} ${name.last}`;
+	const img = createElement('img', 'profile-img');
+	img.src = imgSize === 'medium' ? picture.medium : picture.large;
+	img.alt = `Picture of ${fullName}`;
+	const textDiv = createElement('div', 'employee-text');
+	const nameH3 = createElement('h3', 'name', `${fullName}`);
+	const emailP = createElement('p', 'email', email);
+	const locationP = createElement('p', 'location', location.city);
+
+	const textData = [nameH3, emailP, locationP];
+	appendItems(textDiv, textData);
+
+	const childElements = [img, textDiv];
+	appendItems(parentElement, childElements);
+	return parentElement;
 }
 
 function generateOverlay(user) {
@@ -58,6 +61,7 @@ function generateOverlay(user) {
 	overlayData.style.display = 'flex';
 
 	const closeBtn = createElement('button', 'close-overlay', 'Close');
+	const cardDiv = createElement('div', 'main-data');
 	const dataElements = [closeBtn];
 	appendItems(overlayData, dataElements);
 }
@@ -88,14 +92,6 @@ function closeOverlay(evt) {
 		overlayData.innerHTML = '';
 		overlayData.style.display = 'none';
 		overlay.style.display = 'none';
-	}
-}
-
-function removeChildren(parentNode) {
-	console.log(parentNode);
-	while (parentNode.firstChild) {
-		console.log(parentNode.firstElementChild);
-		parentNode.removeChild(parent.firstElementChild);
 	}
 }
 

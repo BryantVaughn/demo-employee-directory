@@ -40,6 +40,7 @@
 	padding: 0.75rem;
 	background-color: #fff;
 	z-index: 5;
+	cursor: default;
 }
 .overlay-data,
 .card {
