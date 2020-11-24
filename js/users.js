@@ -1,5 +1,7 @@
 // Global variables
 const usersUrl = 'https://randomuser.me/api/?results=12';
+const overlay = document.querySelector('.overlay');
+const overlayData = document.querySelector('.overlay-data');
 const employees = document.querySelector('.employee-container');
 const randomUsers = [];
 
@@ -53,6 +55,8 @@ function generateUserCards(users) {
 
 function generateOverlay(user) {
 	console.log(user);
+	overlay.style.display = 'block';
+	overlayData.style.display = 'block';
 }
 
 // Helper Functions
