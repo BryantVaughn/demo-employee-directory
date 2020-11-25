@@ -232,7 +232,7 @@ function scrollOverlay(direction) {
 
 function handleOverlayClick(evt) {
 	const { target } = evt;
-	if (target.className === 'close' || target.className === 'overlay') {
+	if (target.className === 'close-overlay' || target.className === 'overlay') {
 		clearOverlay();
 		closeOverlay();
 	} else if (target.id === 'left' || target.id === 'right') {
