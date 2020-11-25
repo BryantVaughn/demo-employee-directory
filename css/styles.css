@@ -9,6 +9,7 @@
 
 .overlay {
 	position: fixed;
+	justify-content: center;
 }
 .overlay,
 .overlay-data {
@@ -31,6 +32,7 @@
 }
 .main-data,
 .main-data .employee-text,
+.overlay,
 .overlay-data,
 .sub-data {
 	flex-direction: column;
@@ -38,6 +40,7 @@
 .card,
 .main-data,
 .main-data .employee-text,
+.overlay,
 .overlay-data,
 .sub-data {
 	align-items: center;
@@ -65,6 +68,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
+	padding-top: 7vh;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 2;
 	cursor: pointer;
@@ -75,23 +79,35 @@
 	cursor: pointer;
 }
 
+.scroll {
+	height: 25px;
+	width: 25%;
+}
+.scroll,
+.overlay-data {
+	background-color: #fff;
+	z-index: 5;
+}
+
 .overlay-data {
 	width: 95%;
 	height: 60vh;
-	margin: 15vh auto 25vh;
+	margin: 0.5rem auto;
 	padding: 0.5rem 0.75rem;
-	background-color: #fff;
-	z-index: 5;
 	cursor: default;
 }
 .overlay-data,
+.scroll,
 .search,
 .card {
 	border-radius: 5px;
 }
 
+.scroll,
 .close-overlay {
 	border: none;
+}
+.close-overlay {
 	background-color: inherit;
 	align-self: flex-end;
 }
@@ -164,6 +180,7 @@
 }
 
 .close-overlay,
+.scroll,
 .email,
 .location,
 .sub-data p {

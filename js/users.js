@@ -5,6 +5,7 @@ const overlayData = document.querySelector('.overlay-data');
 const search = document.querySelector('.search');
 const employees = document.querySelector('.employee-container');
 const randomUsers = [];
+let overlayView;
 
 // Fetch functions
 async function fetchData(url) {
@@ -25,6 +26,7 @@ async function getRandomUsers(url) {
 // Generate HTML functions
 function generateUserCards(users) {
 	users.forEach((user, idx) => {
+		user.shown = true;
 		// Add user to randomUsers array
 		randomUsers.push(user);
 		// Create employee div with user index
@@ -70,7 +72,7 @@ function generateSubData(parentElement, user) {
 }
 
 function generateOverlay(user) {
-	overlay.style.display = 'block';
+	overlay.style.display = 'flex';
 	overlayData.style.display = 'flex';
 
 	const closeBtn = createElement('button', 'close-overlay', 'Close');
@@ -184,21 +186,57 @@ function abbrState(inputState) {
 	return stateAbbr;
 }
 
+function findWithAttr(array, attr, value) {
+	for (let i = 0; i < array.length; i++) {
+		if (array[i][`${attr}`] === value) return i;
+	}
+	return -1;
+}
+
 // Event Handlers
 function handleCardClick(evt) {
 	let currNode = evt.target;
 	while (currNode.className !== 'card') {
 		currNode = currNode.parentNode;
 	}
+	overlayView = currNode.id;
 	generateOverlay(randomUsers[currNode.id]);
 }
 
-function closeOverlay(evt) {
+function clearOverlay() {
+	overlayData.innerHTML = '';
+}
+
+function closeOverlay() {
+	overlayData.style.display = 'none';
+	overlay.style.display = 'none';
+	overlayView = null;
+}
+
+function scrollOverlay(direction) {
+	const shownUserEmail = overlayData.querySelector('.email').textContent;
+	const shownUsers = randomUsers.filter((user) => {
+		if (user.shown) return user;
+	});
+
+	let idx = findWithAttr(shownUsers, 'email', shownUserEmail);
+	clearOverlay();
+
+	if (direction === 'left') {
+		if (idx === 0) idx = shownUsers.length;
+		generateOverlay(shownUsers[(idx - 1) % shownUsers.length]);
+	} else {
+		generateOverlay(shownUsers[(idx + 1) % shownUsers.length]);
+	}
+}
+
+function handleOverlayClick(evt) {
 	const { target } = evt;
-	if (target.tagName === 'BUTTON' || target.className === 'overlay') {
-		overlayData.innerHTML = '';
-		overlayData.style.display = 'none';
-		overlay.style.display = 'none';
+	if (target.className === 'close' || target.className === 'overlay') {
+		clearOverlay();
+		closeOverlay();
+	} else if (target.id === 'left' || target.id === 'right') {
+		scrollOverlay(target.id);
 	}
 }
 
@@ -209,8 +247,11 @@ function filterEmployees(evt) {
 		const searchVal = evt.target.value.toLowerCase();
 		const fullName = `${user.name.first} ${user.name.last}`.toLowerCase();
 		if (fullName.includes(searchVal)) {
+			user.shown = true;
 			const idxStr = `${idx}`;
 			filteredUsers.push({ ...user, idxStr });
+		} else {
+			user.shown = false;
 		}
 	});
 	updateUsers(filteredUsers);
@@ -233,4 +274,4 @@ function updateUsers(usersList) {
 document.addEventListener('DOMContentLoaded', () => getRandomUsers(usersUrl));
 search.addEventListener('keyup', filterEmployees);
 employees.addEventListener('click', handleCardClick);
-overlay.addEventListener('click', closeOverlay);
+overlay.addEventListener('click', handleOverlayClick);
